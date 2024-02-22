@@ -37,3 +37,4 @@ func GetCollection(client *mongo.Client, collectionName string) *mongo.Collectio
 	collection := client.Database("golang-api").Collection(collectionName)
 	return collection
 }
+

@@ -7,3 +7,4 @@ type UserResponse struct {
 	Message string     `json:"message"`
 	Data    *fiber.Map `json:"data"`
 }
+

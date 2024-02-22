@@ -8,3 +8,4 @@ type User struct {
 	Location string 			`json:"location,omitempty" validate:"required"`
 	Title 	 string 			`json:"title,omitempty" validate:"required"`
 }
+

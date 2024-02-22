@@ -15,3 +15,4 @@ func EnvMongoURL() string{
 
 	return os.Getenv("MONGOURL")
 }
+
