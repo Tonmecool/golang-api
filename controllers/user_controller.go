@@ -65,7 +65,7 @@ func GetAUser(c *fiber.Ctx) error {
 
 	objId, _ := primitive.ObjectIDFromHex(userId)
 
-	err := userCollection.FindOne(ctx, bson.M{"id": objId}).Decode(&user)
+	err := userCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&user)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(
 			responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}},
@@ -100,7 +100,7 @@ func EditAUser(c *fiber.Ctx) error {
 
 	update := bson.M{"name": user.Name, "location": user.Location, "title": user.Title}
 
-	result, err := userCollection.UpdateOne(ctx, bson.M{"id": objId}, bson.M{"$set": update})
+	result, err := userCollection.UpdateOne(ctx, bson.M{"_id": objId}, bson.M{"$set": update})
 
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(
@@ -111,7 +111,7 @@ func EditAUser(c *fiber.Ctx) error {
 	//update user details
 	var updateUser models.User
 	if result.MatchedCount == 1 {
-		err := userCollection.FindOne(ctx, bson.M{"id": objId}).Decode(&updateUser)
+		err := userCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&updateUser)
 
 		if err != nil {
 			return c.Status(http.StatusInternalServerError).JSON(
@@ -133,7 +133,7 @@ func DeleteAUser(c *fiber.Ctx) error {
 
     objId, _ := primitive.ObjectIDFromHex(userId)
 
-	result, err := userCollection.DeleteOne(ctx, bson.M{"id": objId})
+	result, err := userCollection.DeleteOne(ctx, bson.M{"_id": objId})
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(
 			responses.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}},
